@@ -1,4 +1,13 @@
-name: ganhwa
-version: '1.0-SNAPSHOT'
+name: Ganhwa
+version: 1.0
 main: io.github.plezhs.ganhwa.Ganhwa
 api-version: '1.21'
+author: plezhs
+description: jk
+commands:
+  material:
+    description: steljlkaklfe
+    usage: /<command> <number>
+  cheat:
+    description: cheat
+    usage: /<command> <level>
