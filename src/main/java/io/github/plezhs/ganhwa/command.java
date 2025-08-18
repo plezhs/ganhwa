@@ -1,10 +1,10 @@
 package io.github.plezhs.ganhwa;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -33,7 +33,7 @@ public class command implements CommandExecutor {
 
         Player p = (Player) sender;
 
-        if (args.length < 2) {
+        if (args.length < 4) {
             sender.sendMessage(ChatColor.RED + "Usage: /" + label + " <number>");
             return false;
         }
@@ -62,19 +62,56 @@ public class command implements CommandExecutor {
         ItemStack tone = new ItemStack(Material.DRAGON_BREATH);
         ItemMeta tonem = tone.getItemMeta();
 
-        tonem.setDisplayName("강화석");
+        tonem.displayName(Component.text("강화석").color(NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC,false));
+
+        List<Component> tonelore = new ArrayList<>();
+        tonelore.add(Component.text(""));
+        tonelore.add(Component.text("강화 아이템").decoration(TextDecoration.ITALIC,false).color(NamedTextColor.GREEN).decoration(TextDecoration.BOLD,true));
+
+        tonem.lore(tonelore);
+
         tone.setAmount(Integer.parseInt(args[0]));
         tone.setItemMeta(tonem);
 //------------------------------------------------------------------------
         ItemStack frag = new ItemStack(Material.ECHO_SHARD);
         ItemMeta fragm = frag.getItemMeta();
 
-        fragm.setDisplayName("강화석 조각");
+        fragm.displayName(Component.text("강화석 조각").color(NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC,false));
         frag.setAmount(Integer.parseInt(args[1]));
         frag.setItemMeta(fragm);
 //------------------------------------------------------------------------
+        ItemStack ench = new ItemStack(Material.GLOWSTONE_DUST);
+        ItemMeta enchm = ench.getItemMeta();
+
+        enchm.displayName(Component.text("마법 수정 가루").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC,false).decoration(TextDecoration.BOLD,true));
+        List<Component> enchlore = new ArrayList<>();
+        enchlore.add(Component.text(""));
+        enchlore.add(Component.text("인챈팅 아이템").color(NamedTextColor.GREEN).decoration(TextDecoration.ITALIC,false).decoration(TextDecoration.BOLD,true));
+
+        enchm.lore(enchlore);
+
+        ench.setAmount(Integer.parseInt(args[2]));
+        ench.setItemMeta(enchm);
+//------------------------------------------------------------------------
+        ItemStack recover_scroll = new ItemStack(Material.FLOW_BANNER_PATTERN);
+        ItemMeta recovermeta = recover_scroll.getItemMeta();
+
+        recovermeta.displayName(Component.text("아이템 복구 스크롤").decoration(TextDecoration.ITALIC,false));
+
+        List<Component> recoverlore = new ArrayList<>();
+        recoverlore.add(Component.text(""));
+        recoverlore.add(Component.text("강화에서 가장 마지막으로 파괴된 아이템 한개를 복구합니다.").decoration(TextDecoration.ITALIC,false).color(NamedTextColor.LIGHT_PURPLE));
+        recoverlore.add(Component.text("강화 아이템").decoration(TextDecoration.ITALIC,false).color(NamedTextColor.GREEN).decoration(TextDecoration.BOLD,true));
+
+        recovermeta.lore(recoverlore);
+
+        recover_scroll.setAmount(Integer.parseInt(args[3]));
+        recover_scroll.setItemMeta(recovermeta);
+//------------------------------------------------------------------------
         p.getInventory().addItem(tone);
         p.getInventory().addItem(frag);
+        p.getInventory().addItem(ench);
+        p.getInventory().addItem(recover_scroll);
 //------------------------------------------------------------------------
         return true;
     }

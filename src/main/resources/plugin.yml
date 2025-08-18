@@ -11,3 +11,6 @@ commands:
   cheat:
     description: cheat
     usage: /<command> <level>
+  shop:
+    description: Material Shop for Reinforce
+    usage: /<command> <None>
